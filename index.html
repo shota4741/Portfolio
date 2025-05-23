@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>近藤翔太 | Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica', 'Arial', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* ヘッダー */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6366f1;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #6366f1;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #6366f1;
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1" fill="white" opacity="0.1"/><circle cx="40" cy="60" r="1" fill="white" opacity="0.1"/><circle cx="90" cy="80" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+            animation: grain 20s infinite linear;
+        }
+
+        @keyframes grain {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100px, -100px); }
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.5s forwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 2s forwards;
+        }
+
+        .cta-button:hover {
+            background: white;
+            color: #6366f1;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* セクション共通スタイル */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1f2937;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            border-radius: 2px;
+        }
+
+        /* About セクション */
+        .about {
+            background: #f8fafc;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            color: #6366f1;
+            margin-bottom: 1rem;
+        }
+
+        /* スキルセクション */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-card h3 {
+            color: #6366f1;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .skill-level {
+            width: 100px;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            border-radius: 3px;
+            transition: width 2s ease;
+        }
+
+        /* プロジェクトセクション */
+        .projects {
+            background: #f8fafc;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.5rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tag {
+            background: #e0e7ff;
+            color: #6366f1;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .project-link {
+            display: inline-block;
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: #4f46e5;
+        }
+
+        /* コンタクトセクション */
+        .contact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: white;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            max-width: 400px;
+            margin: 3rem auto 0;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .contact-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* フッター */
+        footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* スクロールアニメーション */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+        }
+
+        /* スクロールインジケーター */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(99, 102, 241, 0.3);
+            z-index: 1001;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- スクロールインジケーター -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <!-- ヘッダー -->
+    <header>
+        <nav>
+            <div class="logo">KS Portfolio</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>近藤翔太</h1>
+            <p class="hero-subtitle">Creative Developer</p>
+            <p class="hero-description">
+                デザインとテクノロジーを融合させ、<br>
+                未来を創造するクリエイティブデベロッパー
+            </p>
+            <a href="#about" class="cta-button">もっと知る</a>
+        </div>
+    </section>
+
+    <!-- Aboutセクション -->
+    <section id="about" class="section about">
+        <h2 class="fade-in">About Me</h2>
+        <div class="about-content fade-in">
+            <div class="about-text">
+                <h3>理工系学生として</h3>
+                <p>
+                    大学で機械工学と情報工学を専攻しています。
+                    ハードウェアとソフトウェアの両方に興味を持ち、理論と実践のバランスを大切にした学習を続けています。
+                    機械設計からプログラミングまで幅広い分野で技術を習得し、工学的思考力を身につけてきました。
+                </p>
+                <p>
+                    授業で学んだ知識を活かして、個人プロジェクトやチーム開発に積極的に取り組んでいます。
+                    新しい技術への好奇心が強く、常に学び続ける姿勢を持っています。
+                    将来は技術を通じて社会課題の解決に貢献したいと考えています。
+                </p>
+                <p>
+                    <strong>専攻:</strong> 機械工学、情報工学<br>
+                    <strong>趣味:</strong> 読書、ゲーム、旅行 etc...
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skillsセクション -->
+    <section id="skills" class="section">
+        <h2 class="fade-in">Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card fade-in">
+                <h3>プログラミング言語</h3>
+                <ul class="skill-list">
+                    <li>
+                        <span>C/C++</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 85%"></div></div>
+                    </li>
+                    <li>
+                        <span>Python</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 80%"></div></div>
+                    </li>
+                    <li>
+                        <span>C#</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 70%"></div></div>
+                    </li>
+                    <li>
+                        <span>JavaScript</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 75%"></div></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="skill-card fade-in">
+                <h3>Web・フロントエンド</h3>
+                <ul class="skill-list">
+                    <li>
+                        <span>HTML/CSS</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 80%"></div></div>
+                    </li>
+                    <li>
+                        <span>JavaScript</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 75%"></div></div>
+                    </li>
+                    <li>
+                        <span>TypeScript</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 65%"></div></div>
+                    </li>
+                    <li>
+                        <span>Unity</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 70%"></div></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="skill-card fade-in">
+                <h3>ツール・その他</h3>
+                <ul class="skill-list">
+                    <li>
+                        <span>MATLAB</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 75%"></div></div>
+                    </li>
+                    <li>
+                        <span>Git/GitHub</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 80%"></div></div>
+                    </li>
+                    <li>
+                        <span>Unity</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 70%"></div></div>
+                    </li>
+                    <li>
+                        <span>3DCAD</span>
+                        <div class="skill-level"><div class="skill-progress" style="width: 65%"></div></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projectsセクション -->
+    <section id="projects" class="section projects">
+        <h2 class="fade-in">Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card fade-in">
+                <div class="project-image">01</div>
+                <div class="project-content">
+                    <h3>Unity 3Dゲーム開発</h3>
+                    <p>C#とUnityを使用した3Dアクションゲームを誠意製作中。物理演算とUIデザインを組み合わせて、直感的で楽しいゲーム体験の実現を目指しています。</p>
+                    <div class="project-tags">
+                        <span class="tag">Unity</span>
+                        <span class="tag">C#</span>
+                        <span class="tag">3D Graphics</span>
+                        <span class="tag">ゲーム開発</span>
+                    </div>
+                    <a href="javascript:void(0)" class="project-link" onclick="alert('現在製作中です')">製作中</a>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image">02</div>
+                <div class="project-content">
+                    <h3>Webアプリケーション開発</h3>
+                    <p>JavaScriptとTypeScriptを使用したWebアプリケーション。天気予報アプリなど、レスポンシブデザインとモダンなUI/UXを取り入れた実用的なアプリを開発しています。</p>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">TypeScript</span>
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">Web開発</span>
+                    </div>
+                    <a href="https://shota4741.github.io/WeatherApp/" target="_blank" class="project-link">天気予報アプリを見る →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contactセクション -->
+    <section id="contact" class="section contact">
+        <h2>Contact Me</h2>
+        <p>一緒にプロジェクトを進めませんか？お気軽にご連絡ください。</p>
+        <div class="contact-info">
+            <div class="contact-item fade-in">
+                <h3>💻 GitHub</h3>
+                <p>github.com/shota4741</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <p>&copy; 2025 近藤翔太. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // スクロールアニメーション
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // スクロールプログレス
+        function updateScrollProgress() {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (scrollTop / scrollHeight) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        }
+
+        // スムーススクロール
+        function smoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    // 無効なセレクタやプレースホルダーリンクの場合は処理をスキップ
+                    if (!href || href === '#' || href.length <= 1) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // ヘッダーの背景変更
+        function handleHeaderBackground() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        }
+
+        // スキルバーアニメーション
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const width = entry.target.style.width;
+                        entry.target.style.width = '0%';
+                        setTimeout(() => {
+                            entry.target.style.width = width;
+                        }, 200);
+                    }
+                });
+            });
+
+            skillBars.forEach(bar => observer.observe(bar));
+        }
+
+        // イベントリスナー
+        window.addEventListener('scroll', () => {
+            handleScrollAnimation();
+            updateScrollProgress();
+            handleHeaderBackground();
+        });
+
+        window.addEventListener('load', () => {
+            handleScrollAnimation();
+            smoothScroll();
+            animateSkillBars();
+        });
+
+        // パフォーマンス最適化のためのスロットリング
+        let ticking = false;
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    handleScrollAnimation();
+                    updateScrollProgress();
+                    handleHeaderBackground();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', requestTick);
+    </script>
+</body>
+</html>
